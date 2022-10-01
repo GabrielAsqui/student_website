@@ -16,7 +16,12 @@
         <field name="model">student_website.student</field>
         <field name="arch" type="xml">
             <form>
-                <header />
+                <header>
+                    <button name="create_portal_user" type="object" class="oe_highlight"
+                           string="Create User" groups="base.group_user"
+                           help="Click to create student's user"
+                           />
+               </header>
                 <sheet>
                     <widget
                         name="web_ribbon"
