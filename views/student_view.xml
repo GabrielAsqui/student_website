@@ -1,0 +1,188 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+    <record model="ir.ui.view" id="student_website_student_tree">
+        <field name="name">student.website.student.tree</field>
+        <field name="model">student_website.student</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="student_website_student_form">
+        <field name="name">student.website.student.form</field>
+        <field name="model">student_website.student</field>
+        <field name="arch" type="xml">
+            <form>
+                <header />
+                <sheet>
+                    <widget
+                        name="web_ribbon"
+                        text="Archived"
+                        bg_color="bg-danger"
+                        attrs="{'invisible': [('active', '=', True)]}"
+                    />
+                    <field name="active" invisible="1" />
+                    <div class="oe_button_box" name="button_box" />
+                    <field
+                        name="image_1920"
+                        widget='image'
+                        class="oe_avatar"
+                        options='{"preview_image": "image_128", "size": [90, 90]}'
+                    />
+                    <div class="oe_title">
+                        <field name="is_company" invisible="1" />
+                        <field name="type" invisible="1" />
+                        <field name="commercial_partner_id" invisible="1" />
+                        <field
+                            name="company_type"
+                            widget="radio"
+                            class="oe_edit_only"
+                            options="{'horizontal': true}"
+                            invisible="1"
+                        />
+                        <h1>
+                            <field
+                                name="name"
+                                default_focus="1"
+                                placeholder="Name"
+                                attrs="{'required' : [('type', '=', 'contact')]}"
+                            />
+                            <field name="is_company" invisible="True" />
+                            <field name="parent_id" invisible="True" />
+                        </h1>
+                        <div class="o_row">
+                            <field
+                                name="parent_id"
+                                placeholder="Company"
+                                domain="[('is_company', '=', True)]"
+                                context="{'default_is_company': True}"
+                                attrs="{'invisible': ['|', '&amp;', ('is_company','=', True),('parent_id', '=', False),('company_name', '!=', False),('company_name', '!=', '')]}"
+                            />
+                            <field
+                                name="company_name"
+                                attrs="{'invisible': ['|', '|', ('company_name', '=', False), ('company_name', '=', ''), ('is_company', '=', True)]}"
+                            />
+                            <!-- <button
+                                name="create_company"
+                                type="object"
+                                string="Create company"
+                                class="btn btn-sm oe_edit_only fa fa-external-link btn btn-link "
+                                attrs="{'invisible': ['|', '|', ('is_company','=', True), ('company_name', '=', ''), ('company_name', '=', False)]}"
+                            /> -->
+                        </div>
+                    </div>
+                    <group name="contact">
+                        <group>
+                            <field
+                                name="type"
+                                attrs="{'invisible': [('parent_id','=', False)]}"
+                                groups="base.group_no_one"
+                            />
+                            <label for="street" string="Address" />
+                            <div class="o_address_format">
+                                <field
+                                    name="street"
+                                    placeholder="Street..."
+                                    class="o_address_street"
+                                    attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"
+                                />
+                                <field
+                                    name="street2"
+                                    placeholder="Street 2..."
+                                    class="o_address_street"
+                                    attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"
+                                />
+                                <field
+                                    name="city"
+                                    placeholder="City"
+                                    class="o_address_city"
+                                    attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"
+                                />
+                                <field
+                                    name="state_id"
+                                    class="o_address_state"
+                                    placeholder="State"
+                                    options='{"no_open": True}'
+                                    attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"
+                                    context="{'country_id': country_id, 'zip': zip}"
+                                />
+                                <field
+                                    name="zip"
+                                    placeholder="ZIP"
+                                    class="o_address_zip"
+                                    attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"
+                                />
+                                <field
+                                    name="country_id"
+                                    placeholder="Country"
+                                    class="o_address_country"
+                                    options='{"no_open": True, "no_create": True}'
+                                    attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"
+                                />
+                            </div>
+                            <field name="vat" placeholder="e.g. BE0477472701" />
+                            <field
+                                name="category_id"
+                                widget="many2many_tags"
+                                options="{'color_field': 'color', 'no_create_edit': True}"
+                                placeholder="Tags..."
+                            />
+                        </group>
+                        <group>
+                            <field
+                                name="function"
+                                placeholder="e.g. Sales Director"
+                                attrs="{'invisible': [('is_company','=', True)]}"
+                            />
+                            <field name="phone" widget="phone" />
+                            <field name="mobile" widget="phone" />
+                            <field name="user_ids" invisible="1" />
+                            <field
+                                name="email"
+                                widget="email"
+                                context="{'gravatar_image': True}"
+                                attrs="{'required': [('user_ids','!=', [])]}"
+                            />
+                            <field
+                                name="website"
+                                widget="url"
+                                placeholder="e.g. www.odoo.com"
+                            />
+                            <field
+                                name="title"
+                                options='{"no_open": True}'
+                                attrs="{'invisible': [('is_company', '=', True)]}"
+                            />
+                            <field name="lang" />
+                        </group>
+                    </group>
+                    <notebook name="subjects_data">
+                    <page
+                        name="student_website_student_administration"
+                        string="Subject data"
+                    >
+                        <group>
+                            <group id="subject_info">
+                                <field name="subjects_ids" />
+                            </group>
+                        </group>
+                    </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+</record>
+
+    <!-- actions opening views on models -->
+    <record model="ir.actions.act_window" id="student_website_student_window_action">
+      <field name="name">Students</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">student_website.student</field>
+      <field name="view_mode">tree,form</field>
+      <field name="context">{'default_company_type': 'person'}</field>
+    </record>
+  </data>
+</odoo>

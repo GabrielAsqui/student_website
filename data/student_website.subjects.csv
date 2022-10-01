@@ -1,0 +1,16 @@
+id,name,student_id:id
+subject_1,Matematicas,estudiante_1
+subject_2,Matematicas,estudiante_2
+subject_3,Matematicas,estudiante_3
+subject_4,Matematicas,estudiante_4
+subject_5,Matematicas,estudiante_5
+subject_6,Sociales,estudiante_1
+subject_7,Sociales,estudiante_2
+subject_8,Sociales,estudiante_3
+subject_9,Sociales,estudiante_4
+subject_10,Sociales,estudiante_5
+subject_11,EDU Fisica,estudiante_1
+subject_12,EDU Fisica,estudiante_2
+subject_13,EDU Fisica,estudiante_3
+subject_14,EDU Fisica,estudiante_4
+subject_15,EDU Fisica,estudiante_5
