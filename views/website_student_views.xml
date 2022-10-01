@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="template_website_student_form">
+        <t t-call="website.layout">
+             <div class="container mt-4">
+                 <t t-if="error">
+                     <div class="alert alert-danger" role="alert">
+                        <span t-esc="error" />
+                    </div>
+                 </t>
+                 <div id="website_student_section">
+                    <section id="s_website_form_student" class="s_website_form_student" data-vcss="001" data-snippet="s_website_form_student">
+                        <div class="container">
+                            <form id="website_student_form" action="/student" method="post" class="o_mark_required" data-mark="*" data-model_name="student_website.student" data-success-mode="redirect" data-success-page="/contactus-thank-you" data-editable-form="false"  hide-change-model="true">
+                                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" />
+                                <div class="s_website_form_rows row s_col_no_bgcolor">
+                                    <div class="form-group col-12 s_website_form_field s_website_form_model_required" data-type="char" data-name="Field">
+                                        <div class="row s_col_no_resize s_col_no_bgcolor">
+                                            <label class="col-form-label col-auto s_website_form_label" style="width: 200px" for="student_name">
+                                                <span class="s_website_form_label_content">Estudiante</span>
+                                                <span class="s_website_form_mark"> *</span>
+                                            </label>
+                                            <div class="col-sm col-xs-12">
+                                                <input id="student_name" type="text" name="student_name" class="form-control s_website_form_input" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-12 s_website_form_submit" data-name="Submit Button">
+                                        <div style="width: 200px;" class="s_website_form_label"/>
+                                        <input type="submit" role="button" class="btn btn-primary btn-lg s_website_form_send_student" value="Enviar"/>
+                                    </div>
+                                </div>
+                            </form>
+                            <div>
+                                <a t-attf-href="/student/#{student.id}" class="btn -btn-primary bt-block">
+                                    <strong>Ver Estudiante</strong>
+                                </a>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+             </div>
+        </t>
+    </template>
+
+    <template id="template_website_student_success_form">
+        <t t-call="website.layout">
+            <h1>Gracias por enviar el formulario :)</h1>
+            <p>Se ha creado con exito el estudiante: <strong><span t-esc="student.name"/> </strong></p>
+        </t>
+    </template>
+
+    <template id="template_show_student">
+        <t t-call="website.layout">
+            <h1><span t-esc="student.name"/></h1>
+            <h2><span t-esc="student.vat"/></h2>
+        </t>
+    </template>
+
+</odoo>
